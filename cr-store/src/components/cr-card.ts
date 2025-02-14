@@ -37,6 +37,7 @@ export class CrCard extends LitElement {
             max-width: 300px;
             gap: 20px;
             background: white;
+           
         }
 
         :host img {
@@ -92,7 +93,6 @@ export class CrCard extends LitElement {
 
                 <div data-name='description'>${this.description}</div>  
                 <div data-name='price'>$ ${this.price}</div>
-                <div data-name='price'>$ ${this.category}</div>
 
                 <cr-button productId=${this.productId} bgColor="#003A5A " textColor="#D5EBFF" >Buy</cr-button>
                 

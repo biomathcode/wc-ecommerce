@@ -2,11 +2,13 @@
 import { LitElement, html, css } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import { provide } from '@lit/context';
+import { Routes } from '@lit-labs/router';
 import { CartContext, Cart, Product } from './context/cart-context.js';
 
 import './components/cr-button.js';
 import './components/cr-card.js'
 import './components/cr-sidebar.js'
+import './components/cr-header.js'
 
 
 
@@ -28,6 +30,11 @@ export class CrStore extends LitElement {
   @property({ attribute: false })
   cart: Cart = new Cart();
 
+  private _route = new Routes(this, [
+    { path: '/', render: () => html`<h1>Home</h1>` },
+    { path: '/projects', render: () => html`<h1>Projects</h1>` },
+    { path: '/about', render: () => html`<h1>About</h1>` },
+  ])
 
 
 
@@ -65,6 +72,11 @@ export class CrStore extends LitElement {
 
 
   static styles = css`
+    :root {
+      --cr-header-size: 100px;
+      --cr-store-background-color: #f0f0f0;
+    }
+
     :host {
       min-height: 100vh;
       display: flex;
@@ -76,12 +88,13 @@ export class CrStore extends LitElement {
       max-width: 960px;
       margin: 0 auto;
       text-align: center;
-      background-color: var(--cr-store-background-color);
+      
     }
 
     main {
       width: 100%;
       height: 100%;
+      margin-top: var(--cr-header-size, 100px);
     }
 
     .products {
@@ -110,8 +123,10 @@ export class CrStore extends LitElement {
 
 
     return html`
+    <cr-header>
+    </cr-header>
       <main>
-        <h1>${this.header}</h1>
+
 
          <div class="products">
           ${this.cart.items.map((product) => html`
