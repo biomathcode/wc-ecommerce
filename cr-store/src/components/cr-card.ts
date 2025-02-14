@@ -20,6 +20,9 @@ export class CrCard extends LitElement {
 
     @property({ type: String }) category = '';
 
+    @property({ type: Number }) productId = 1;
+
+
     static styles = css`
         :host {
             position: relative;
@@ -91,7 +94,7 @@ export class CrCard extends LitElement {
                 <div data-name='price'>$ ${this.price}</div>
                 <div data-name='price'>$ ${this.category}</div>
 
-                <cr-button bgColor="#003A5A " textColor="#D5EBFF" >Buy</cr-button>
+                <cr-button productId=${this.productId} bgColor="#003A5A " textColor="#D5EBFF" >Buy</cr-button>
                 
             </div>
 

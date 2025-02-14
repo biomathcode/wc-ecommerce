@@ -1,16 +1,15 @@
 /* eslint-disable wc/guard-super-call */
 import { LitElement, html, css } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import './cr-button.js';
-import './cr-card.js'
+import { provide } from '@lit/context';
+import { CartContext, Cart, Product } from './context/cart-context.js';
 
-interface Product {
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-  category: string;
-}
+import './components/cr-button.js';
+import './components/cr-card.js'
+import './components/cr-sidebar.js'
+
+
+
 
 
 @customElement('cr-store')
@@ -25,13 +24,12 @@ export class CrStore extends LitElement {
 
   @property({ type: String }) error = '';
 
+  @provide({ context: CartContext })
+  @property({ attribute: false })
+  cart: Cart = new Cart();
 
-  constructor() {
-    super();
-    this.thing = []
-    this.fetching = true
-    this.error = ''
-  }
+
+
 
 
   connectedCallback(): void {
@@ -52,12 +50,16 @@ export class CrStore extends LitElement {
       }
       const data = await r.json(); // Store parsed response once
 
+      this.cart.items = data;
+
+      console.log(this.cart)
+
+
       this.products = data;
     } catch (e) {
       this.error = e as string
     }
     this.fetching = false
-
 
   }
 
@@ -88,6 +90,12 @@ export class CrStore extends LitElement {
       gap: 20px;
     }
 
+    h1 {
+      margin: 0px;
+      padding: 20px 40px;
+      font-size: 24px;
+    }
+
    
   `;
 
@@ -106,21 +114,25 @@ export class CrStore extends LitElement {
         <h1>${this.header}</h1>
 
          <div class="products">
-          ${this.products.map((product) => html`
+          ${this.cart.items.map((product) => html`
             <cr-card 
             nameTitle=${product.title} 
             description=${product.description} 
             image=${product.image} 
             price=${product.price}
             category=${product.category}
+            productId=${product.id}
             ></cr-card>`)}
         </div>
+        
+        <cr-sidebar>
+        </cr-sidebar>
 
         
       </main>
 
 
-      
+
     `;
   }
 }

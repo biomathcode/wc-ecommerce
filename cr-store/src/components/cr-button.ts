@@ -1,5 +1,7 @@
+import { consume } from "@lit/context";
 import { css, html, LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
+import { Cart, CartContext } from "../context/cart-context.js";
 
 
 // add comment for using the button with properties
@@ -15,6 +17,14 @@ export class CrButton extends LitElement {
   @property({ type: String }) textColor = 'white';
 
   @property({ type: String }) variant: 'filled' | 'outlined' = 'filled';
+
+  @property({ type: Number }) productId = 1;
+
+
+  @consume({ context: CartContext, subscribe: true })
+  @property({ attribute: false })
+  private cartService?: Cart;
+
 
 
   static styles = css`
@@ -46,6 +56,7 @@ export class CrButton extends LitElement {
         <button
         aria-label="button"
         class=${this.variant}
+        @click=${() => this.cartService?.addCartItems(this.productId)}
         style="--bg-color: ${this.bgColor}; --text-color: ${this.textColor};"
       >
         <slot></slot>
