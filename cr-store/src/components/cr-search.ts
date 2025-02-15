@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js'
+import { customElement } from 'lit/decorators.js';
 
 /*
 Search component 
@@ -9,13 +9,7 @@ and will search for the nearest store
 
 @customElement('cr-search')
 export class CrSearch extends LitElement {
-
-
-
-    render() {
-        return html`
-        
-        `
-    }
-
+  render() {
+    return html``;
+  }
 }

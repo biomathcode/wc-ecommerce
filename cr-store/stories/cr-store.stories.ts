@@ -20,8 +20,14 @@ interface ArgTypes {
   backgroundColor?: string;
 }
 
-const Template: Story<ArgTypes> = ({ header, backgroundColor = 'white' }: ArgTypes) => html`
-  <cr-store style="--cr-store-background-color: ${backgroundColor}" .header=${header}></cr-store>
+const Template: Story<ArgTypes> = ({
+  header,
+  backgroundColor = 'white',
+}: ArgTypes) => html`
+  <cr-store
+    style="--cr-store-background-color: ${backgroundColor}"
+    .header=${header}
+  ></cr-store>
 `;
 
 export const App = Template.bind({});
