@@ -12,7 +12,8 @@ export class CrHeader extends LitElement {
             width: 100vw;
             display: flex;
             justify-content: center;
-            background-color: white;
+            background-color: var(--sl-color-gray-50);
+            color: var(--sl-color-blue-700);
             margin-bottom: 20px;
             z-index: 2;
 

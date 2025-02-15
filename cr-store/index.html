@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Put your description here.">
 
-  <link rel="icon" type="image/x-icon" href="/assets/open-wc-logo.svg" <base href="/">
+  <link rel="icon" type="image/x-icon" href="/assets/open-wc-logo.svg">
+
+
+  <!-- adding styles-->
+  <link rel="stylesheet" href="/src/themes/light.css" />
+  <link rel="stylesheet" href="/src/themes/dark.css" />
 
   <style>
     html,
@@ -14,16 +19,40 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color: #eee;
+      background-color: var(--sl-color-neutral-0, '#eee');
+    }
+
+    #themeToggle {
+      z-index: 900;
+      position: fixed;
+      right: 0px;
+      top: 10px;
     }
   </style>
   <title>cr-store</title>
 </head>
 
 <body>
+
+  <cr-button id="themeToggle">
+    ThemeToggle
+  </cr-button>
   <cr-store></cr-store>
 
+
   <script type="module" src="./out-tsc/src/cr-store.js"></script>
+
+  <script>
+    const el = document.getElementById('themeToggle');
+
+
+
+    el.addEventListener('click', () => {
+      document.documentElement.classList.toggle('sl-theme-dark')
+
+    })
+
+  </script>
 </body>
 
 </html>

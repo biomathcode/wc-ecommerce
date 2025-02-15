@@ -36,7 +36,8 @@ export class CrCard extends LitElement {
             margin: 10px;
             max-width: 300px;
             gap: 20px;
-            background: white;
+            background: var(--sl-color-neutral-100);
+            color: var(--sl-color-neutral-900);
            
         }
 
@@ -54,7 +55,7 @@ export class CrCard extends LitElement {
 
         :host div[data-name='description'] {
             font-size: 14px;
-            text-color: #eee;
+            text-color: var(--sl-input-help-text-color);
             margin-top: 10px;
             display: -webkit-box;
 

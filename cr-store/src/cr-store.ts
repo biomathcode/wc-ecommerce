@@ -1,16 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable wc/guard-super-call */
 import { LitElement, html, css } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import { provide } from '@lit/context';
 import { Routes } from '@lit-labs/router';
 import { CartContext, Cart, Product } from './context/cart-context.js';
-
 import './components/cr-button.js';
 import './components/cr-card.js'
 import './components/cr-sidebar.js'
 import './components/cr-header.js'
-
-
 
 
 
@@ -30,12 +28,6 @@ export class CrStore extends LitElement {
   @property({ attribute: false })
   cart: Cart = new Cart();
 
-  private _route = new Routes(this, [
-    { path: '/', render: () => html`<h1>Home</h1>` },
-    { path: '/projects', render: () => html`<h1>Projects</h1>` },
-    { path: '/about', render: () => html`<h1>About</h1>` },
-  ])
-
 
 
 
@@ -43,9 +35,15 @@ export class CrStore extends LitElement {
 
     this.fetchData();
     super.connectedCallback();
-
-
+    this._routes = new Routes(this, [
+      { path: '/', render: () => html`<h1>Home</h1>` },
+      { path: '/projects', render: () => html`<h1>Projects</h1>` },
+      { path: '/about', render: () => html`<h1>About</h1>` },
+    ])
   }
+
+  private _routes: Routes | undefined;
+
 
   async fetchData() {
 
@@ -115,19 +113,14 @@ export class CrStore extends LitElement {
   render() {
 
     if (this.fetching) {
-      console.log('data', this.thing, this.products)
       return html`<div>Loading...</div>`
     }
-
-    console.log('data', this.thing, this.products)
-
 
     return html`
     <cr-header>
     </cr-header>
       <main>
-
-
+      <div>${this._routes?.outlet()}</div>
          <div class="products">
           ${this.cart.items.map((product) => html`
             <cr-card 
@@ -139,15 +132,16 @@ export class CrStore extends LitElement {
             productId=${product.id}
             ></cr-card>`)}
         </div>
-        
         <cr-sidebar>
         </cr-sidebar>
-
-        
       </main>
-
-
-
     `;
+  }
+}
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'cr-strore': CrStore;
   }
 }
